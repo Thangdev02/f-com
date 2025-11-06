@@ -143,22 +143,7 @@
       "messageCount": 12,
       "createdAt": "2024-11-01T08:30:00Z"
     },
-    {
-      "id": "4cd2",
-      "name": "Anh Thư Trần",
-      "description": "Anh Thư Trần",
-      "type": "private",
-      "creator": "Giảng viên FPT",
-      "creatorId": "1",
-      "members": [
-        "1",
-        "7186",
-        "5b77"
-      ],
-      "joinRequests": [],
-      "messageCount": 0,
-      "createdAt": "2025-11-05T14:14:38.502Z"
-    },
+    
     {
       "id": "1596",
       "name": "Lớp học vui vẻ",
@@ -349,16 +334,7 @@
         }
       ]
     },
-    {
-      "id": "442c",
-      "forumId": "4cd2",
-      "creatorId": "1",
-      "title": "cc",
-      "description": "cc",
-      "date": "2025-11-05",
-      "time": "22:20",
-      "createdAt": "2025-11-05T15:22:31.915Z"
-    },
+   
     {
       "id": "41a9",
       "forumId": "1596",
