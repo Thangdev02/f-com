@@ -1,0 +1,435 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Giảng viên FPT",
+      "email": "teacher@fpt.edu.vn",
+      "password": "teacher123",
+      "role": "teacher",
+      "phone": "+84 123 456 789"
+    },
+    {
+      "id": "2",
+      "name": "Sinh viên FPT",
+      "email": "student@fpt.edu.vn",
+      "password": "student123",
+      "role": "student",
+      "phone": "+84 987 654 321"
+    },
+    {
+      "id": "3",
+      "name": "Admin FPT",
+      "email": "admin@fpt.edu.vn",
+      "password": "admin123",
+      "role": "admin",
+      "phone": "+84 456 789 123"
+    },
+    {
+      "id": "7186",
+      "name": "Thanglq",
+      "email": "thangdev02@gmail.com",
+      "password": "123123",
+      "role": "student",
+      "createdAt": "2025-11-05T13:32:50.043Z"
+    },
+    {
+      "id": "5b77",
+      "name": "Toi di cot dao",
+      "email": "toi@gmail.com",
+      "password": "123123",
+      "role": "student",
+      "createdAt": "2025-11-05T14:18:19.977Z"
+    },
+    {
+      "id": "f7fc",
+      "name": "thang",
+      "email": "thang@gmail.com",
+      "password": "123123",
+      "role": "student",
+      "createdAt": "2025-11-05T15:58:28.049Z"
+    }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "author": "Giảng viên FPT",
+      "authorId": "1",
+      "content": "Thông báo: Tuyển sinh khóa tháng 12 đã bắt đầu. Các bạn quan tâm vui lòng liên hệ phòng tuyển sinh.",
+      "timestamp": "2024-11-05 14:30",
+      "likes": [],
+      "image": null
+    },
+    {
+      "id": "2",
+      "author": "Giảng viên FPT",
+      "authorId": "1",
+      "content": "Buổi workshop lập trình Web sắp diễn ra vào thứ 7 tuần này. Các bạn đủ điều kiện vui lòng đăng ký sớm.",
+      "timestamp": "2024-11-04 10:15",
+      "likes": [],
+      "image": "https://cdnphoto.dantri.com.vn/xHzQG9mqsrfVkuKSm4c3tt7hUOE=/thumb_w/1020/2025/05/30/image-11-1-thumbpng-1748591823276.png"
+    },
+    {
+      "id": "7345",
+      "author": "Sinh viên FPT",
+      "authorId": "2",
+      "content": "Hôm nay tôi vui",
+      "timestamp": "22:58:08 5/11/2025",
+      "likes": [],
+      "image": null
+    },
+    {
+      "id": "0b66",
+      "author": "Giảng viên FPT",
+      "authorId": "1",
+      "content": "bán sáo",
+      "timestamp": "01:01:25 6/11/2025",
+      "likes": [],
+      "image": "https://solg.vn/wp-content/uploads/2019/09/solg_MG_0721-1024x683-1.jpg"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "postId": "1",
+      "author": "Sinh viên FPT",
+      "authorId": "2",
+      "content": "Cảm ơn thông tin!",
+      "timestamp": "2024-11-05 15:00"
+    },
+    {
+      "id": "c2a2",
+      "postId": "d578",
+      "author": "Thanglq",
+      "authorId": "7186",
+      "content": "lon",
+      "timestamp": "21:28:59 5/11/2025"
+    },
+    {
+      "id": "e205",
+      "postId": "7345",
+      "author": "thang",
+      "authorId": "f7fc",
+      "content": "tôi cũng vậy",
+      "timestamp": "22:58:38 5/11/2025"
+    }
+  ],
+  "forums": [
+    {
+      "id": "1",
+      "name": "Lập trình Web",
+      "description": "Forum dành cho những ai muốn học lập trình web từ cơ bản đến nâng cao",
+      "creator": "Giảng viên FPT",
+      "creatorId": "1",
+      "type": "public",
+      "members": [
+        "1",
+        "2"
+      ],
+      "joinRequests": [],
+      "messageCount": 24,
+      "createdAt": "2024-10-15T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Thảo luận Lập trình",
+      "description": "Nơi để các lập trình viên chia sẻ kinh nghiệm và thảo luận về những vấn đề kỹ thuật",
+      "creator": "Giảng viên FPT",
+      "creatorId": "1",
+      "type": "private",
+      "members": [
+        "1"
+      ],
+      "joinRequests": [],
+      "messageCount": 12,
+      "createdAt": "2024-11-01T08:30:00Z"
+    },
+    {
+      "id": "4cd2",
+      "name": "Anh Thư Trần",
+      "description": "Anh Thư Trần",
+      "type": "private",
+      "creator": "Giảng viên FPT",
+      "creatorId": "1",
+      "members": [
+        "1",
+        "7186",
+        "5b77"
+      ],
+      "joinRequests": [],
+      "messageCount": 0,
+      "createdAt": "2025-11-05T14:14:38.502Z"
+    },
+    {
+      "id": "1596",
+      "name": "Lớp học vui vẻ",
+      "description": "Lớp học vui vẻ",
+      "type": "private",
+      "creator": "Giảng viên FPT",
+      "creatorId": "1",
+      "members": [
+        "1",
+        "f7fc",
+        "5b77"
+      ],
+      "joinRequests": [],
+      "messageCount": 0,
+      "createdAt": "2025-11-05T15:59:12.240Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "1",
+      "forumId": "1",
+      "author": "Giảng viên FPT",
+      "authorId": "1",
+      "content": "Chào mọi người, chúng ta hôm nay sẽ học về React hooks!",
+      "timestamp": "09:30"
+    },
+    {
+      "id": "2",
+      "forumId": "1",
+      "author": "Sinh viên FPT",
+      "authorId": "2",
+      "content": "Vâng, em rất mong chờ bài học này!",
+      "timestamp": "09:45"
+    },
+    {
+      "id": "e378",
+      "forumId": "0",
+      "author": "Giảng viên FPT",
+      "authorId": "1",
+      "content": "Chào các em",
+      "timestamp": "20:32:30"
+    },
+    {
+      "id": "7cf1",
+      "forumId": "4cd2",
+      "author": "Giảng viên FPT",
+      "authorId": "1",
+      "content": "Chào mọi người",
+      "timestamp": "21:15:42"
+    },
+    {
+      "id": "5337",
+      "forumId": "4cd2",
+      "author": "Thanglq",
+      "authorId": "7186",
+      "content": "Chào mọi người",
+      "timestamp": "21:16:38"
+    },
+    {
+      "id": "36d8",
+      "forumId": "4cd2",
+      "author": "Thanglq",
+      "authorId": "7186",
+      "content": "Tôi đây",
+      "timestamp": "21:16:44"
+    },
+    {
+      "id": "5bb6",
+      "forumId": "4cd2",
+      "author": "Toi di cot dao",
+      "authorId": "5b77",
+      "content": "Chào tôi là toi di cot dao",
+      "timestamp": "21:18:54"
+    }
+  ],
+  "schedules": [
+    {
+      "id": "1",
+      "userId": "1",
+      "userName": "Giảng viên FPT",
+      "title": "Buổi giảng lập trình React",
+      "description": "Giới thiệu về React hooks và state management",
+      "date": "2024-11-10",
+      "time": "09:00",
+      "createdAt": "2024-11-05T10:00:00Z"
+    }
+  ],
+  "forumRequests": [
+    {
+      "id": "1",
+      "forumId": "2",
+      "userId": "2",
+      "userName": "Sinh viên FPT",
+      "userEmail": "student@fpt.edu.vn",
+      "status": "pending",
+      "createdAt": "2024-11-05T15:30:00Z"
+    },
+    {
+      "id": "cb57",
+      "forumId": "32ad",
+      "userId": "1",
+      "userName": "Giảng viên FPT",
+      "userEmail": "teacher@fpt.edu.vn",
+      "status": "pending",
+      "createdAt": "2025-11-05T13:56:06.596Z"
+    },
+    {
+      "id": "b6a7",
+      "forumId": "d05c",
+      "userId": "2",
+      "userName": "Sinh viên FPT",
+      "userEmail": "student@fpt.edu.vn",
+      "status": "pending",
+      "createdAt": "2025-11-05T13:57:35.216Z"
+    },
+    {
+      "id": "5843",
+      "forumId": "396f",
+      "userId": "2",
+      "userName": "Sinh viên FPT",
+      "userEmail": "student@fpt.edu.vn",
+      "status": "pending",
+      "createdAt": "2025-11-05T13:57:37.537Z"
+    },
+    {
+      "id": "65b4",
+      "forumId": "0c04",
+      "userId": "7186",
+      "userName": "Thanglq",
+      "userEmail": "thangdev02@gmail.com",
+      "status": "pending",
+      "createdAt": "2025-11-05T14:02:31.776Z"
+    },
+    {
+      "id": "56a2",
+      "forumId": "4cd2",
+      "userId": "7186",
+      "userName": "Thanglq",
+      "userEmail": "thangdev02@gmail.com",
+      "status": "approved",
+      "createdAt": "2025-11-05T14:14:56.863Z"
+    },
+    {
+      "id": "34b8",
+      "forumId": "4cd2",
+      "userId": "5b77",
+      "userName": "Toi di cot dao",
+      "userEmail": "toi@gmail.com",
+      "status": "approved",
+      "createdAt": "2025-11-05T14:18:23.611Z"
+    },
+    {
+      "id": "f457",
+      "forumId": "1596",
+      "userId": "f7fc",
+      "userName": "thang",
+      "userEmail": "thang@gmail.com",
+      "status": "approved",
+      "createdAt": "2025-11-05T15:59:34.152Z"
+    },
+    {
+      "id": "113d",
+      "forumId": "1596",
+      "userId": "5b77",
+      "userName": "Toi di cot dao",
+      "userEmail": "toi@gmail.com",
+      "status": "approved",
+      "createdAt": "2025-11-05T16:59:54.844Z"
+    }
+  ],
+  "forumInvitations": [],
+  "appointments": [
+    {
+      "id": 1,
+      "forumId": 2,
+      "creatorId": 1,
+      "title": "Thảo luận đồ án tuần 5",
+      "description": "Chuẩn bị phần backend và test API",
+      "date": "2025-11-10T15:00",
+      "participants": [
+        {
+          "userId": 2,
+          "status": "pending"
+        },
+        {
+          "userId": 3,
+          "status": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "442c",
+      "forumId": "4cd2",
+      "creatorId": "1",
+      "title": "cc",
+      "description": "cc",
+      "date": "2025-11-05",
+      "time": "22:20",
+      "createdAt": "2025-11-05T15:22:31.915Z"
+    },
+    {
+      "id": "41a9",
+      "forumId": "1596",
+      "creatorId": "1",
+      "title": "Hôm nay rãnh",
+      "description": "Hôm nay rãnh",
+      "date": "2025-11-05",
+      "time": "23:03",
+      "createdAt": "2025-11-05T16:01:25.716Z",
+      "participants": [
+        {
+          "userId": "1",
+          "status": "accepted"
+        },
+        {
+          "userId": "f7fc",
+          "status": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "5a37",
+      "forumId": "1596",
+      "creatorId": "1",
+      "title": "ĐI chơi nè",
+      "description": "ĐI chơi nè",
+      "date": "2025-11-06",
+      "time": "02:01",
+      "participants": [
+        {
+          "userId": "1",
+          "status": "accepted"
+        },
+        {
+          "userId": "5b77",
+          "status": "accepted"
+        }
+      ],
+      "createdAt": "2025-11-05T17:00:53.852Z"
+    },
+    {
+      "id": "1f56",
+      "forumId": "1596",
+      "creatorId": "5b77",
+      "title": "Họp đồ án",
+      "description": "Họp đi",
+      "date": "2025-11-06",
+      "time": "00:21",
+      "participants": [
+        {
+          "userId": "1",
+          "status": "accepted"
+        }
+      ],
+      "createdAt": "2025-11-05T17:17:51.106Z"
+    },
+    {
+      "id": "2b5c",
+      "forumId": "1596",
+      "creatorId": "1",
+      "title": "ád",
+      "description": "ád",
+      "date": "2025-11-01",
+      "time": "00:19",
+      "participants": [
+        {
+          "userId": "1",
+          "status": "rejected"
+        }
+      ],
+      "createdAt": "2025-11-05T17:18:12.593Z"
+    }
+  ]
+}
