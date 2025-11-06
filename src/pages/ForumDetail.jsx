@@ -212,98 +212,72 @@ export default function ForumDetail({ user }) {
         </div>
 
         {/* Messages + Appointment cards */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
-          {appointments.map((a) => {
-            const my = String(a.creatorId) === String(user.id)
-            const joined =
-              Array.isArray(a.participants) &&
-              a.participants.some((p) => String(p.userId) === String(user.id) && p.status === "accepted")
+        {/* Messages + Appointment cards */}
+<div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+  {appointments.map((a) => {
+    const my = String(a.creatorId) === String(user.id)
+    const joined =
+      Array.isArray(a.participants) &&
+      a.participants.some((p) => String(p.userId) === String(user.id) && p.status === "accepted")
 
-            return (
-              <motion.div
-                key={a.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`flex ${my ? "justify-end" : "justify-start"}`}
-              >
-                <div className="max-w-xl w-full rounded-lg border bg-white p-4 shadow-md">
-                  <div className="flex items-center gap-2 mb-2">
-                    <CalendarDays className="text-blue-600" size={18} />
-                    <p className="text-sm font-semibold text-gray-800">
-                      {a.title}{" "}
-                      <span className="text-xs text-gray-500">
-                        ({a.date}
-                        {a.time ? ` • ${a.time}` : ""})
-                      </span>
-                    </p>
-                  </div>
-                  {a.description && <p className="text-sm text-gray-700 mb-3">{a.description}</p>}
+    return (
+      <motion.div
+        key={a.id}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.2 }}
+        className={`flex ${my ? "justify-end" : "justify-start"}`}
+      >
+        <div className="max-w-xl w-full rounded-lg border bg-white p-4 shadow-md">
+          <div className="flex items-center gap-2 mb-2">
+            <CalendarDays className="text-blue-600" size={18} />
+            <p className="text-sm font-semibold text-gray-800">
+              {a.title}{" "}
+              <span className="text-xs text-gray-500">
+                ({a.date}
+                {a.time ? ` • ${a.time}` : ""})
+              </span>
+            </p>
+          </div>
+          {a.description && <p className="text-sm text-gray-700 mb-3">{a.description}</p>}
 
-                  <div className="flex items-center gap-2">
-                    {!joined ? (
-                      <>
-                        <button
-                          onClick={() => setAppointmentParticipation(a.id, user.id, "accepted").then(fetchData)}
-                          className="inline-flex items-center gap-1 px-3 py-1 rounded bg-green-600 text-white text-sm hover:bg-green-700 transition"
-                        >
-                          <Check size={14} /> Tham gia
-                        </button>
-                        <button
-                          onClick={() => setAppointmentParticipation(a.id, user.id, "rejected").then(fetchData)}
-                          className="inline-flex items-center gap-1 px-3 py-1 rounded bg-gray-200 text-gray-700 text-sm hover:bg-gray-300 transition"
-                        >
-                          <X size={14} /> Không tham gia
-                        </button>
-                      </>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 text-green-700 text-sm">
-                        <Check size={14} /> Bạn đã tham gia
-                      </span>
-                    )}
-                    <span className="ml-auto text-xs text-gray-500">
-                      Tạo bởi #{a.creatorId} •{" "}
-                      {(a.participants || []).filter((p) => p.status === "accepted").length} người tham gia
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            )
-          })}
-
-          {messages.map((message) => {
-            const myMessage = String(message.authorId) === String(user.id)
-            return (
-              <motion.div
-                key={message.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`flex ${myMessage ? "justify-end" : "justify-start"}`}
-              >
-                <div
-                  className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg relative ${
-                    myMessage ? "bg-red-500 text-white" : "bg-gray-200 text-gray-800"
-                  }`}
+          <div className="flex items-center gap-2">
+            {!joined ? (
+              <>
+                <button
+                  onClick={() =>
+                    setAppointmentParticipation(a.id, user.id, "accepted").then(() => fetchAppointmentsOnly())
+                  }
+                  className="inline-flex items-center gap-1 px-3 py-1 rounded bg-green-600 text-white text-sm hover:bg-green-700 transition"
                 >
-                  {!myMessage && <p className="text-xs font-semibold mb-1">{message.author}</p>}
-                  <p className="text-sm break-words">{message.content}</p>
-                  <p className="text-xs mt-1 opacity-70">{message.timestamp}</p>
-
-                  {myMessage && (
-                    <motion.button
-                      onClick={() => handleDeleteMessage(message.id)}
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="absolute top-1 right-1 p-1 bg-white bg-opacity-20 rounded-full text-gray-100 hover:bg-opacity-40 transition"
-                      title="Thu hồi tin nhắn"
-                    >
-                      <Trash2 size={16} />
-                    </motion.button>
-                  )}
-                </div>
-              </motion.div>
-            )
-          })}
+                  <Check size={14} /> Tham gia
+                </button>
+                <button
+                  onClick={() =>
+                    setAppointmentParticipation(a.id, user.id, "rejected").then(() => fetchAppointmentsOnly())
+                  }
+                  className="inline-flex items-center gap-1 px-3 py-1 rounded bg-gray-200 text-gray-700 text-sm hover:bg-gray-300 transition"
+                >
+                  <X size={14} /> Không tham gia
+                </button>
+              </>
+            ) : (
+              <span className="inline-flex items-center gap-1 text-green-700 text-sm">
+                <Check size={14} /> Bạn đã tham gia
+              </span>
+            )}
+            <span className="ml-auto text-xs text-gray-500">
+              Tạo bởi #{a.creatorId} •{" "}
+              {(a.participants || []).filter((p) => p.status === "accepted").length} người tham gia
+            </span>
+          </div>
         </div>
+      </motion.div>
+    )
+  })}
+</div>
+
 
         {/* Input */}
         <div className="bg-white border-t border-gray-200 p-4">
