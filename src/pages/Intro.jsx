@@ -7,31 +7,44 @@ export default function Intro() {
     <div className="font-sans text-gray-800">
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-red-500 to-red-700 text-white h-screen flex flex-col justify-center items-center text-center px-4">
-        <motion.h1 
-          initial={{ opacity: 0, y: -50 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 0.8 }}
-          className="text-4xl md:text-6xl font-bold mb-4"
-        >
-          Chào mừng đến với Dự Án XYZ
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }} 
-          transition={{ duration: 1.2 }}
-          className="text-lg md:text-2xl max-w-xl mb-8"
-        >
-          Một nền tảng hiện đại giúp kết nối cộng đồng, chia sẻ ý tưởng và tương tác trực tiếp.
-        </motion.p>
-        <motion.a
-          href="#features"
-          whileHover={{ scale: 1.05 }}
-          className="bg-white text-red-600 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition-colors"
-        >
-          Tìm hiểu ngay
-        </motion.a>
-      </section>
+      <section className="relative h-screen flex flex-col justify-center items-center text-center px-4">
+  {/* Background image */}
+  <div className="absolute inset-0">
+    <img
+      src="https://international.fpt.edu.vn/web/image/image.gallery/1499/image" // Thay bằng hình nền bạn muốn
+      alt="Hero Background"
+      className="w-full h-full object-cover"
+    />
+    {/* Overlay đen */}
+    <div className="absolute inset-0 bg-black/50"></div>
+  </div>
+
+  {/* Content */}
+  <motion.h1 
+    initial={{ opacity: 0, y: -50 }} 
+    animate={{ opacity: 1, y: 0 }} 
+    transition={{ duration: 0.8 }}
+    className="text-4xl md:text-6xl font-bold mb-4 text-white relative z-10"
+  >
+    Chào mừng đến F-Community
+  </motion.h1>
+  <motion.p 
+    initial={{ opacity: 0 }} 
+    animate={{ opacity: 1 }} 
+    transition={{ duration: 1.2 }}
+    className="text-lg md:text-2xl max-w-xl mb-8 text-white relative z-10"
+  >
+    Một nền tảng hiện đại giúp kết nối cộng đồng, chia sẻ ý tưởng và tương tác trực tiếp.
+  </motion.p>
+  <motion.a
+    href="#features"
+    whileHover={{ scale: 1.05 }}
+    className="bg-white text-red-600 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition-colors relative z-10"
+  >
+    Tìm hiểu ngay
+  </motion.a>
+</section>
+
 
       {/* Features Section */}
       <section id="features" className="py-20 bg-gray-50 px-4">
@@ -58,7 +71,7 @@ export default function Intro() {
       {/* About Section */}
       <section className="py-20 px-4 max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
         <motion.img 
-          src="/intro-about.jpg" 
+          src="https://fpt.com/Resources/2011/03/14/8749878/fpt_6.jpg" 
           alt="About project" 
           className="rounded-xl shadow-lg w-full md:w-1/2"
           initial={{ opacity: 0, x: -50 }}
@@ -72,7 +85,7 @@ export default function Intro() {
         >
           <h2 className="text-3xl font-bold mb-4">Về dự án</h2>
           <p className="text-gray-600 mb-4">
-            Dự án XYZ được tạo ra nhằm giúp học sinh, sinh viên và cộng đồng đam mê công nghệ dễ dàng chia sẻ ý tưởng, thảo luận và học hỏi lẫn nhau.
+            F-Community được tạo ra nhằm giúp học sinh, sinh viên, giảng viên và cộng đồng dễ dàng chia sẻ ý tưởng, thảo luận và học hỏi lẫn nhau.
           </p>
           <p className="text-gray-600">
             Chúng tôi mong muốn xây dựng một nền tảng thân thiện, trực quan và hiện đại, nơi mọi người đều có thể tham gia và phát triển kỹ năng của mình.
@@ -87,9 +100,9 @@ export default function Intro() {
           <p className="text-gray-600 max-w-2xl mx-auto">Một số hình ảnh minh họa về giao diện và tính năng nổi bật.</p>
         </div>
         <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          <img src="/gallery1.jpg" alt="Gallery 1" className="rounded-lg shadow-lg" />
-          <img src="/gallery2.jpg" alt="Gallery 2" className="rounded-lg shadow-lg" />
-          <img src="/gallery3.jpg" alt="Gallery 3" className="rounded-lg shadow-lg" />
+          <img style={{ width: "100%", height: "300px", objectFit: "cover" }} src="https://daihoc.fpt.edu.vn/wp-content/uploads/2023/07/phong-hoc-tieng-anh-dh-fpt.jpeg" alt="Gallery 1" className="rounded-lg shadow-lg" />
+          <img  style={{ width: "100%", height: "300px",objectFit: "cover" }} src="https://daihoc.fpt.edu.vn/wp-content/uploads/2022/04/thang-ren-luyen-tap-trung-dai-hoc-fpt-7-910x512.jpeg" alt="Gallery 2" className="rounded-lg shadow-lg" />
+          <img  style={{ width: "100%", height: "300px",objectFit: "cover" }} src="https://daihoc.fpt.edu.vn/wp-content/uploads/2016/12/13015326_1006583956086631_1734788458934006276_n.jpg" alt="Gallery 3" className="rounded-lg shadow-lg" />
         </div>
       </section>
 
@@ -97,14 +110,14 @@ export default function Intro() {
       <section className="py-20 bg-red-600 text-white text-center px-4">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Tham gia ngay</h2>
         <p className="mb-8 max-w-xl mx-auto">Trở thành một phần của cộng đồng, chia sẻ ý tưởng và kết nối với những người cùng đam mê.</p>
-        <a href="/register" className="bg-white text-red-600 px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition-colors">
+        <a href="/login" className="bg-white text-red-600 px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition-colors">
           Đăng ký ngay
         </a>
       </section>
 
       {/* Footer */}
       <footer className="py-10 bg-gray-900 text-gray-400 text-center">
-        <p>&copy; 2025 Dự án XYZ. All rights reserved.</p>
+        <p>&copy; 2025 F-Community. All rights reserved.</p>
       </footer>
 
     </div>

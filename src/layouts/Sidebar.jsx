@@ -1,13 +1,14 @@
 "use client"
 import { Link, useLocation } from "react-router-dom"
-import { Home, MessageSquare, Calendar, Users, Settings, LogOut } from "lucide-react"
+import { Home, MessageSquare, Calendar, Users, Settings, LogOut, Newspaper } from "lucide-react"
 import { motion } from "framer-motion"
 
 export default function Sidebar({ user, handleLogout }) {
   const location = useLocation()
 
   const menuItems = [
-    { icon: Home, label: "Trang chủ", path: "/" },
+    { icon: Home, label: "Trang chủ", path: "/home" },
+    { icon: Newspaper, label: "Bài Đăng", path: "/" },
     { icon: MessageSquare, label: "F-community", path: "/forums" },
     { icon: Calendar, label: "Thống kê lịch trống", path: "/calendar" },
     { icon: Settings, label: "Hồ sơ", path: "/profile" },
@@ -21,7 +22,7 @@ export default function Sidebar({ user, handleLogout }) {
   return (
     <div className="flex flex-col h-full p-4 space-y-4">
       <div className="flex items-center justify-center mb-6">
-          <img src="./logoF.png" alt="logo" className="rounded-full" style={{ width: "100px", height: "100px" }} />
+          <img src="./finalLogo.jpeg" alt="logo" style={{ width: "100px", height: "50px" }} />
       </div>
 
       <nav className="flex-1 space-y-2">
