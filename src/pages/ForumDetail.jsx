@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useParams } from "react-router-dom"
 import {
   getForumById,
@@ -14,7 +14,6 @@ import {
   deleteMessage,
 } from "../services/api"
 import { Send, CalendarDays, Check, X, Trash2 } from "lucide-react"
-import { motion } from "framer-motion"
 import AppointmentModal from "../components/AppointmentModal"
 
 export default function ForumDetail({ user }) {
@@ -28,24 +27,29 @@ export default function ForumDetail({ user }) {
   const [loadingRequests, setLoadingRequests] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [sending, setSending] = useState(false)
+  const messagesEndRef = useRef(null)
 
+  // Fetch forum & appointments once
   useEffect(() => {
-    fetchData()
-    const interval = setInterval(fetchData, 2000)
+    fetchForumAndAppointments()
+  }, [id])
+
+  // Fetch messages separately every 2s
+  useEffect(() => {
+    fetchMessages()
+    const interval = setInterval(fetchMessages, 2000)
     return () => clearInterval(interval)
   }, [id])
 
-  const fetchData = async () => {
+  const fetchForumAndAppointments = async () => {
     try {
       setIsLoading(true)
-      const [forumData, messagesData, appts] = await Promise.all([
-        getForumById(id),
-        getMessages(id),
-        getAppointments(id),
-      ])
+      const forumData = await getForumById(id)
       setForum(forumData)
-      setMessages(messagesData)
+
+      const appts = await getAppointments(id)
       setAppointments(appts.sort((a, b) => (a.createdAt || "").localeCompare(b.createdAt || "")))
+
       if (String(forumData?.creatorId) === String(user.id)) {
         await fetchRequests()
       }
@@ -53,6 +57,15 @@ export default function ForumDetail({ user }) {
       console.error("Error loading forum:", e)
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const fetchMessages = async () => {
+    try {
+      const msgs = await getMessages(id)
+      setMessages(msgs)
+    } catch (e) {
+      console.error("Error loading messages:", e)
     }
   }
 
@@ -79,9 +92,9 @@ export default function ForumDetail({ user }) {
       timestamp: new Date().toLocaleTimeString("vi-VN"),
     }
     try {
-      await createMessage(message)
+      const created = await createMessage(message)
+      setMessages((prev) => [...prev, created]) // append message mới
       setNewMessage("")
-      await fetchData() // fetch 1 lần duy nhất
     } catch (e) {
       console.error("Error creating message:", e)
       alert("Lỗi khi gửi tin nhắn")
@@ -94,7 +107,7 @@ export default function ForumDetail({ user }) {
     if (!confirm("Bạn có chắc muốn xóa tin nhắn này?")) return
     try {
       await deleteMessage(messageId)
-      fetchData()
+      setMessages((prev) => prev.filter((m) => m.id !== messageId))
     } catch (e) {
       console.error("Error deleting message:", e)
       alert("Lỗi khi xóa tin nhắn")
@@ -104,7 +117,7 @@ export default function ForumDetail({ user }) {
   const handleApproveRequest = async (request) => {
     try {
       await approveForumRequest(request.id, request.forumId, request.userId)
-      await fetchData()
+      await fetchRequests()
     } catch (e) {
       console.error("approve error:", e)
       alert("Lỗi khi chấp nhận yêu cầu")
@@ -123,6 +136,11 @@ export default function ForumDetail({ user }) {
 
   const isMember = (forum?.members || []).map(String).includes(String(user.id))
   const isCreator = String(forum?.creatorId) === String(user.id)
+
+  // Auto scroll messages
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages])
 
   if (isLoading && !forum)
     return <div className="flex items-center justify-center h-screen">Đang tải...</div>
@@ -191,7 +209,7 @@ export default function ForumDetail({ user }) {
         )}
       </div>
 
-      {/* Chat Area */}
+      {/* Chat + Appointments */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
         <div className="bg-white shadow-sm border-b border-gray-200 p-4 flex items-center justify-between sticky top-0 z-10">
@@ -211,19 +229,16 @@ export default function ForumDetail({ user }) {
           )}
         </div>
 
-        {/* Messages + Appointment cards */}
+        {/* Appointments */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
           {appointments.map((a) => {
             const my = String(a.creatorId) === String(user.id)
             const joined =
               Array.isArray(a.participants) &&
               a.participants.some((p) => String(p.userId) === String(user.id) && p.status === "accepted")
-
             return (
-              <motion.div
+              <div
                 key={a.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
                 className={`flex ${my ? "justify-end" : "justify-start"}`}
               >
                 <div className="max-w-xl w-full rounded-lg border bg-white p-4 shadow-md">
@@ -232,24 +247,22 @@ export default function ForumDetail({ user }) {
                     <p className="text-sm font-semibold text-gray-800">
                       {a.title}{" "}
                       <span className="text-xs text-gray-500">
-                        ({a.date}
-                        {a.time ? ` • ${a.time}` : ""})
+                        ({a.date}{a.time ? ` • ${a.time}` : ""})
                       </span>
                     </p>
                   </div>
                   {a.description && <p className="text-sm text-gray-700 mb-3">{a.description}</p>}
-
                   <div className="flex items-center gap-2">
                     {!joined ? (
                       <>
                         <button
-                          onClick={() => setAppointmentParticipation(a.id, user.id, "accepted").then(fetchData)}
+                          onClick={() => setAppointmentParticipation(a.id, user.id, "accepted").then(fetchForumAndAppointments)}
                           className="inline-flex items-center gap-1 px-3 py-1 rounded bg-green-600 text-white text-sm hover:bg-green-700 transition"
                         >
                           <Check size={14} /> Tham gia
                         </button>
                         <button
-                          onClick={() => setAppointmentParticipation(a.id, user.id, "rejected").then(fetchData)}
+                          onClick={() => setAppointmentParticipation(a.id, user.id, "rejected").then(fetchForumAndAppointments)}
                           className="inline-flex items-center gap-1 px-3 py-1 rounded bg-gray-200 text-gray-700 text-sm hover:bg-gray-300 transition"
                         >
                           <X size={14} /> Không tham gia
@@ -261,22 +274,20 @@ export default function ForumDetail({ user }) {
                       </span>
                     )}
                     <span className="ml-auto text-xs text-gray-500">
-                      Tạo bởi #{a.creatorId} •{" "}
-                      {(a.participants || []).filter((p) => p.status === "accepted").length} người tham gia
+                      Tạo bởi #{a.creatorId} • {(a.participants || []).filter((p) => p.status === "accepted").length} người tham gia
                     </span>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             )
           })}
 
+          {/* Messages */}
           {messages.map((message) => {
             const myMessage = String(message.authorId) === String(user.id)
             return (
-              <motion.div
+              <div
                 key={message.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
                 className={`flex ${myMessage ? "justify-end" : "justify-start"}`}
               >
                 <div
@@ -289,20 +300,19 @@ export default function ForumDetail({ user }) {
                   <p className="text-xs mt-1 opacity-70">{message.timestamp}</p>
 
                   {myMessage && (
-                    <motion.button
+                    <button
                       onClick={() => handleDeleteMessage(message.id)}
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
                       className="absolute top-1 right-1 p-1 bg-white bg-opacity-20 rounded-full text-gray-100 hover:bg-opacity-40 transition"
                       title="Thu hồi tin nhắn"
                     >
                       <Trash2 size={16} />
-                    </motion.button>
+                    </button>
                   )}
                 </div>
-              </motion.div>
+              </div>
             )
           })}
+          <div ref={messagesEndRef} />
         </div>
 
         {/* Input */}
@@ -318,9 +328,7 @@ export default function ForumDetail({ user }) {
                 className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"
                 disabled={sending}
               />
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <button
                 onClick={handleSendMessage}
                 disabled={sending}
                 className={`bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 transition-colors ${
@@ -328,7 +336,7 @@ export default function ForumDetail({ user }) {
                 }`}
               >
                 <Send size={20} />
-              </motion.button>
+              </button>
             </div>
           ) : (
             <div className="text-center text-sm text-gray-500">
@@ -340,6 +348,7 @@ export default function ForumDetail({ user }) {
         </div>
       </div>
 
+      {/* Appointment Modal */}
       {showModal && (
         <AppointmentModal
           forumId={String(id)}
@@ -347,7 +356,7 @@ export default function ForumDetail({ user }) {
           onClose={() => setShowModal(false)}
           onCreated={() => {
             setShowModal(false)
-            fetchData()
+            fetchForumAndAppointments()
           }}
         />
       )}
